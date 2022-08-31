@@ -1,0 +1,29 @@
+{
+    "name": "unb-libraries/dockworker-cypress",
+    "description": "Adds Cypress testing to dockworker projects",
+    "type": "library",
+    "require": {
+        "unb-libraries/dockworker": "^5"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "UNB Libraries",
+            "email": "libsupport@unb.ca"
+        },
+        {
+            "name": "Patrick Schilf",
+            "email": "pschilf@unb.ca"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Dockworker\\": "src"
+        }
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "vendor/bin/dockworker git:setup-hooks"
+        ]
+    }
+}
