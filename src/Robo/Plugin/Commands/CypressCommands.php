@@ -2,6 +2,8 @@
 
 namespace Dockworker\Robo\Plugin\Commands;
 
+use Dockworker\Robo\Task\Docker\Tasks;
+
 /**
  * Defines commands used to run Cypress tests.
  */
@@ -38,6 +40,8 @@ class CypressCommands extends DockworkerCommands {
   public function runCypressTests() {
     $this->io()->title("Running Cypress Tests");
     $this->taskDockerStart($this->getContainerId())
+      ->run();
+    $this->taskDockerLogs($this->getContainerId(), '-f', '-n 0')
       ->run();
   }
 
