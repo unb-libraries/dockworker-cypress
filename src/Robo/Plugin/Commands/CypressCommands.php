@@ -7,6 +7,17 @@ namespace Dockworker\Robo\Plugin\Commands;
  */
 class CypressCommands extends DockworkerCommands {
 
+  use Tasks;
+
+  protected $containerId;
+
+  protected function getContainerId() {
+    if (!isset($this->containerId)) {
+      $this->containerId = "cypress.$this->instanceName";
+    }
+    return $this->containerId;
+  }
+
   /**
    * Run all Cypress tests.
    *
@@ -26,7 +37,7 @@ class CypressCommands extends DockworkerCommands {
    */
   public function runCypressTests() {
     $this->io()->title("Running Cypress Tests");
-    $this->taskDockerStart('bnaldlibunbca_cypress_1')
+    $this->taskDockerStart($this->getContainerId())
       ->run();
   }
 
