@@ -35,6 +35,7 @@ class CypressCommands extends DockworkerCommands {
    *
    * @command tests:cypress
    * @aliases cypress
+   * @e2e
    * @throws \Dockworker\DockworkerException
    */
   public function runCypressTests() {
