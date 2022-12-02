@@ -39,9 +39,13 @@ class CypressCommands extends DockworkerCommands {
    * @throws \Dockworker\DockworkerException
    */
   public function runCypressTests() {
-    $this->setRunOtherCommand('cypress:up');
-    $this->taskDockerLogs($this->getContainerId(), '-f', '-n 0')
-      ->run();
+    try {
+      $this->setRunOtherCommand('cypress:up', 'Failing spec(s) detected.');
+      $this->writeln("All specs passed.");
+    }
+    catch (DockworkerException $e) {
+      $this->say($e->getMessage());
+    }
   }
 
   /**
@@ -60,7 +64,7 @@ class CypressCommands extends DockworkerCommands {
   public function up(string $service = 'cypress', bool $forceRecreate = FALSE, bool $noDeps = FALSE) {
     $this->io()->title("Starting cypress container");
 
-    $cmd = 'docker-compose up';
+    $cmd = "docker-compose up --abort-on-container-exit --exit-code-from $service";
     if ($forceRecreate) {
       $cmd .= ' --force-recreate';
     }
@@ -69,7 +73,7 @@ class CypressCommands extends DockworkerCommands {
     }
     $cmd .= " $service";
 
-    $this->_exec($cmd);
+    return $this->_exec($cmd);
   }
 
 }
