@@ -49,7 +49,7 @@ class CypressCommands extends DockworkerCommands {
    *
    * @command cypress:up
    *
-   * @option string|null $service
+   * @param string $service
    *   Name of the cypress container. Defaults to the name of the primary
    *   service container, prefixed by "cypress".
    * @option bool $forceRecreate
@@ -57,7 +57,7 @@ class CypressCommands extends DockworkerCommands {
    * @option bool $noDeps
    *   Same as docker-compose's --no-deps.
    */
-  public function up($service = 'cypress', bool $forceRecreate = FALSE, bool $noDeps = FALSE) {
+  public function up(string $service = 'cypress', bool $forceRecreate = FALSE, bool $noDeps = FALSE) {
     $this->io()->title("Starting cypress container");
 
     $cmd = 'docker-compose up -d';
@@ -67,7 +67,7 @@ class CypressCommands extends DockworkerCommands {
     if ($noDeps) {
       $cmd .= ' --no-deps';
     }
-    $cmd .= $service;
+    $cmd .= " $service";
 
     $this->_exec($cmd);
   }
