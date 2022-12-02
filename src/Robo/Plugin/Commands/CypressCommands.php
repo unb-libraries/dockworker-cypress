@@ -60,7 +60,7 @@ class CypressCommands extends DockworkerCommands {
   public function up(string $service = 'cypress', bool $forceRecreate = FALSE, bool $noDeps = FALSE) {
     $this->io()->title("Starting cypress container");
 
-    $cmd = 'docker-compose up -d';
+    $cmd = 'docker-compose up';
     if ($forceRecreate) {
       $cmd .= ' --force-recreate';
     }
