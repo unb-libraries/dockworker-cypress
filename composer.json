@@ -3,7 +3,7 @@
     "description": "Adds Cypress testing to dockworker projects",
     "type": "library",
     "require": {
-        "unb-libraries/dockworker": "^5"
+        "unb-libraries/dockworker": "6.x-dev"
     },
     "license": "MIT",
     "authors": [
