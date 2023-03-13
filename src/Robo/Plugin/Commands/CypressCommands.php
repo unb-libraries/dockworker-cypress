@@ -49,6 +49,38 @@ class CypressCommands extends DockworkerCommands {
   }
 
   /**
+   * Run all einbaum tests.
+   *
+   * @command tests:einbaum
+   * @aliases einbaum
+   * @e2e
+   *
+   * @option bool $headless
+   *   Set to TRUE to run from CLI. FALSE to start desktop client.
+   *
+   * @throws \Dockworker\DockworkerException
+   */
+  public function runEinbaumTests(bool $headless = FALSE) {
+    $cmd = "npx einbaum --project-root=./tests/einbaum";
+    if ($headless) {
+      $cmd .= " --headless";
+    }
+
+    try {
+      $result = $this->_exec($cmd);
+      if ($result->getExitCode() == 0) {
+        $this->writeln("All specs passed.");
+      }
+      else {
+        $this->writeln("Failing spec(s) detected.");
+      }
+    }
+    catch (\Exception $e) {
+      $this->say($e->getMessage());
+    }
+  }
+
+  /**
    * Start the cypress container.
    *
    * @command cypress:up
