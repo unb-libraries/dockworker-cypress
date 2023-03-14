@@ -49,6 +49,25 @@ class CypressCommands extends DockworkerCommands {
   }
 
   /**
+   * Install NPM packages.
+   *
+   * @hook pre-command tests:einbaum
+   */
+  public function installNpmDependencies() {
+    if (!file_exists('node_modules') && file_exists('package-lock.json')) {
+      $cmd = "npm ci";
+    }
+    elseif (!file_exists('package-lock.json')) {
+      $cmd = "npm install";
+    }
+    else {
+      $cmd = "npm update";
+    }
+
+    $this->_exec($cmd);
+  }
+
+  /**
    * Run all einbaum tests.
    *
    * @command tests:einbaum
