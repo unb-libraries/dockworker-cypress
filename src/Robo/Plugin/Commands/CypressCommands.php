@@ -3,6 +3,7 @@
 namespace Dockworker\Robo\Plugin\Commands;
 
 use Dockworker\Robo\Task\Docker\Tasks;
+use \Dockworker\DockworkerException;
 
 /**
  * Defines commands used to run Cypress tests.
