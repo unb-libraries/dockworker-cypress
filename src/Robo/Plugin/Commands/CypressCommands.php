@@ -75,14 +75,14 @@ class CypressCommands extends DockworkerCommands {
    * @aliases einbaum
    * @e2e
    *
-   * @option bool $headless
-   *   Set to TRUE to run from CLI. FALSE to start desktop client.
+   * @option bool $gui
+   *   Set to TRUE to use desktop GUI client. FALSE to run through CLI.
    *
    * @throws \Dockworker\DockworkerException
    */
-  public function runEinbaumTests(bool $headless = FALSE) {
+  public function runEinbaumTests(bool $gui = FALSE) {
     $cmd = "npx einbaum --project-root=./tests/einbaum";
-    if ($headless) {
+    if (!$gui) {
       $cmd .= " --headless";
     }
 
