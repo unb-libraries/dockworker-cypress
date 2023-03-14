@@ -22,13 +22,13 @@ class CypressCommands extends DockworkerCommands {
   }
 
   /**
-   * Run all Cypress tests.
+   * Run all einbaum tests.
    *
    * @hook post-command tests:all
    * @throws \Dockworker\DockworkerException
    */
-  public function addCypressTests() {
-    $this->setRunOtherCommand('tests:cypress');
+  public function addEinbaumTests() {
+    $this->setRunOtherCommand('tests:einbaum');
   }
 
   /**
