@@ -54,6 +54,8 @@ class CypressCommands extends DockworkerCommands {
    * Install NPM packages.
    *
    * @hook pre-command tests:einbaum
+   *
+   * @throws \Dockworker\DockworkerException
    */
   public function installNpmDependencies() {
     if (!file_exists('node_modules') && file_exists('package-lock.json')) {
@@ -66,7 +68,10 @@ class CypressCommands extends DockworkerCommands {
       $cmd = "npm update";
     }
 
-    $this->_exec($cmd);
+    $result = $this->_exec($cmd);
+    if ($result->getExitCode() != 0) {
+      throw new DockworkerException("Error during dependency install.");
+    }
   }
 
   /**
