@@ -28,7 +28,8 @@ class CypressCommands extends DockworkerCommands {
    * @throws \Dockworker\DockworkerException
    */
   public function addEinbaumTests() {
-    $this->setRunOtherCommand('tests:einbaum');
+    $this->setRunOtherCommand('tests:einbaum', 'Run failed.');
+    $this->writeln("All specs passed.");
   }
 
   /**
@@ -86,17 +87,9 @@ class CypressCommands extends DockworkerCommands {
       $cmd .= " --headless";
     }
 
-    try {
-      $result = $this->_exec($cmd);
-      if ($result->getExitCode() == 0) {
-        $this->writeln("All specs passed.");
-      }
-      else {
-        $this->writeln("Failing spec(s) detected.");
-      }
-    }
-    catch (\Exception $e) {
-      $this->say($e->getMessage());
+    $result = $this->_exec($cmd);
+    if ($result->getExitCode() != 0) {
+      throw new DockworkerException("Failing test(s).");
     }
   }
 
